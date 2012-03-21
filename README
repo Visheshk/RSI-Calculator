@@ -1,0 +1,25 @@
+The aim of this program is to calculate the RSI of the stocks in the txt files.
+
+The syntax of stock details in the txt files are as such:
+<STOCKNAME>, Opening, High, Low, Close, <somerandomnumber>
+
+The final aim of the program as of the moment, is to generate an output txt file that is of the following format:
+<STOCKNAME>, RSI, … <other statistical measurements as and when we think of them>,
+with the filename being the date.
+On further specifications, the array within the program will hold the stocks of particular interest, depending upon the newest day's file prepared, and recent low or high rsi values, et al.
+/* That means after rsi.c is made to work and prepare the initial text file that is up to date with the latest date, we are required to make an rsiupdate.c, that sees the latest date, the last text file, and prepares the output file for the latest date. We will discuss the detailed working plan of how this will work later.
+*/
+The current first iteration of this program tries to prepare a table of the rsi of the first stock, in the first ten date (out of which only 7 happen to be valid).
+
+Things which need to be improved for this.~~
+
+!!
+So, instead of preparing a table that is uptodate, we work on rsiupdate.c directly.
+
+Things to do:
+1. Decide number of elements to be used for simple moving average
+2. Prepare txt file with every required thing to build upon for further calculation of RSI - in kind of the following format
+<stockname>, Simple Moving Average of ( up value (U) ),Simple Moving Average of ( down value (D) )
+with the filename as the date upto which it sees.
+3. Analyze every condition for adding 1 to the date. (!), and make a corresponding add_to_date function.
+4. Prepare updatersi.c which (obviously enough), updates the rsi, for the next available date.
