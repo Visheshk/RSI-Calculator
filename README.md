@@ -4,7 +4,7 @@
 Essentially, to make the process of obtaining the list of stocks worth looking into, automated, and easy.
 As is right now, put very explicitly, by tracking the RSI (Relative Strength Index) of the stocks.
 
-###Right Now?### 
+###Right Now?
 To calculate the RSI of the stocks in the txt files.
 
 The syntax of stock details in the txt files are as such:
