@@ -47,17 +47,21 @@ int nextcomma(FILE *fl, int co){
 	return co;
 }
 
-int oneday(char name[], float today[][5], int day) {
+int oneday(char name[], float today[][5], int day, int stline) {
 	FILE* fl;
 	//fl = fopen("01-06-2011.txt","r");
 //	char name[]="01-06-2011.txt";
 	fl = fopen(name, "r");
 	if(fl != NULL){
 	int op[15], cl[10], co = fgetc(fl);
-	
+	int i = 0;
+	while(i < stline && co != 13) {
+		co = fgetc(fl);
+	}
+	co = fgetc(fl);
 	co = nextcomma(fl, co);	
 	co = nextcomma(fl, co);
-	int i = 0;
+	i = 0;
 	while(co != 44){
 		op[i] = co;
 		i++;
@@ -142,29 +146,33 @@ float calcrsi(float today[][5], int n){
 		i++;
 	}
 	int l = 0;
-	printf("\n"); // to print smova's both columns, to check obtained simple moving averages
+//	printf("\n"); // to print smova's both columns, to check obtained simple moving averages
 	for(; l < 10;  l++){
-		printf("%f\t%f\n", smova[l][0], smova[l][1]);
+//		printf("%f\t%f\n", smova[l][0], smova[l][1]);
 	}
-	printf("\n");
+//	printf("\n");
 }
 
 int main(){
+	int stline = 0;
+	while(stline <= 1){
 	float today[100][5]; //today[row number][opening], [][closing], [][U], [][D], [][rsi]
 	int day = 0, i = 0;
-	char name[] = "01-06-2011.txt";
+	char name[] = "Stocks/01-06-2011.txt";
 	for(; i < 10; i++){
-		if(oneday(name, today, day) == 0)
+		if(oneday(name, today, day, stline) == 0)
 			day++;
-		name[1]++;
+		name[8]++;
 	}
 	today[0][2] == 0; today[0][3] == 0;
-	oneday(name, today, day);
+	oneday(name, today, day, stline);
 	int n = 3;
 	calcrsi(today, n);	
 	for(i = 0; i < 10; i++){
 		printf("%f\t%f\t%f\t%f\t%f\n", today[i][0], today[i][1], today[i][2], today[i][3], today[i][4]);
 	}
-
+	printf("\n");
+	stline++;
+	}
 }
 
