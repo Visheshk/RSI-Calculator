@@ -153,22 +153,63 @@ float calcrsi(float today[][5], int n){
 //	printf("\n");
 }
 
+int adddate(char name[]){
+//	char name[] = "Stocks/01-06-2011.txt"; //DD-MM-YYYY
+	//   name[] = "0123456789-123456
+	//add 1 to the main part of date
+//	int i = 0;
+//	while(i < 365){
+	if((int) name[8] < 57)
+		name[8]++; //make 01 to 02 and so on
+	else if((int) name[8] == 57){
+		name[8] = 48;
+		name[7]++; // make 09 to 10
+	}
+	
+	if((int) name[8] == 50 && (int) name[7] == 51){ //make 32-0x to 01-MM + 1
+		name[8] = 49;
+		name[7] = 48;
+		name[11]++;
+	}
+	
+	if((int) name[11] == 58){ //converting DD-0: to DD-10
+		name[11] = 48;
+		name[10]++;
+	}
+	
+	if((int) name[10] == 49 && (int) name[11] == 51){ //converting DD-13-YYYY to DD-01-YYY(Y+1)
+		name[10] = 48;
+		name[11] = 49;
+		name[16]++;
+	}
+	
+	if((int) name[16] == 58){ // converting dd-mm-yyy: to dd-mm-yy(y+1)0
+		name[16] = 48;
+		name[15]++;
+	}
+//	printf("%s\n", name);
+//	i++;
+//	}
+
+}
+
 int main(){
 	int stline = 0;
-	while(stline <= 1){
+	while(stline <= 2){
 	float today[100][5]; //today[row number][opening], [][closing], [][U], [][D], [][rsi]
 	int day = 0, i = 0;
 	char name[] = "Stocks/01-06-2011.txt";
-	for(; i < 10; i++){
+	for(; i < 100; i++){
 		if(oneday(name, today, day, stline) == 0)
 			day++;
-		name[8]++;
+//		name[8]++;
+		adddate(name);
 	}
 	today[0][2] == 0; today[0][3] == 0;
 	oneday(name, today, day, stline);
-	int n = 3;
+	int n = 10;
 	calcrsi(today, n);	
-	for(i = 0; i < 10; i++){
+	for(i = 0; i < day; i++){
 		printf("%f\t%f\t%f\t%f\t%f\n", today[i][0], today[i][1], today[i][2], today[i][3], today[i][4]);
 	}
 	printf("\n");
