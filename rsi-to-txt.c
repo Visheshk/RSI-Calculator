@@ -198,32 +198,37 @@ int adddate(char name[]){
 
 int main(){
 	int stline = 0;
-	FILE *fil;
-	while(stline <= 1){
+	FILE *fil, *fil2;
+	while(stline <= 50){
 	float today[100][5]; //today[row number][opening], [][closing], [][U], [][D], [][rsi]
-	int day = 0, i = 0, n = 3;
+	int day = 0, i = 0, n = 15;
 	char name[] = "Stocks/01-06-2011.txt";
-	char namein[21];
+	char namein[21], note[21];
 	int j = 0;
 	for(; i < 100  && day < n; i++){
 		for(j = 0; j < 21; j++){
 			namein[j] = name[j];
+			note[j] = name[j];
 		}
 		namein[0] = 'O'; namein[1] = 'u'; namein[2] = 't'; namein[3] = 'p'; namein[4] = 'u'; namein[5] = 't';
+		note[0] = 'N'; note[1] = 'o'; note[2] = 't'; note[3] = 'i'; note[4] = 'c'; note[5] = 'e';
 		if(oneday(name, today, day, stline) == 0)
 			day++;
 //		name[8]++;
 		adddate(name);
 	}
 	fil = fopen(namein, "a");
+	fil2 = fopen(note, "a");
 	//char date[15];
 	//for(j = 0; j < 15; j++){date[j] = namein[j + 6];}
 	//fprintf(fil, "%s\n", name);
 	today[0][2] == 0; today[0][3] == 0;
 	oneday(name, today, day, stline);
 	calcrsi(today, n);
-	for(i = 0; i < day; i++){
+	for(i = day - 1; i < day; i++){
 		fprintf(fil,"%f\t%f\t%f\t%f\t%f\n", today[i][0], today[i][1], today[i][2], today[i][3], today[i][4]);
+		if(today[i][4] <= 30 || today[i][4] >= 70)
+			fprintf(fil2, "%d\t%f\n", stline, today[i][4]);
 	}
 	fprintf(fil,"\n");
 	stline++;
