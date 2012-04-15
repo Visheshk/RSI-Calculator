@@ -4,6 +4,14 @@
 Essentially, to make the process of obtaining the list of stocks worth looking into, automated, and easy.
 As is right now, put very explicitly, by tracking the RSI (Relative Strength Index) of the stocks.
 
+##What is done at the moment?
+rsi-to-txt.c does the following stuff:
+* Takes an initial date in the string called name[].
+* Has an integer n, which is the number of days whose closing values will be taken into account, to calculate the RSI at the end of the nth day.
+From the initial date to n days ahead, it analyzes all the stock values found, as if they were consecutive days. (This functionality can be changed somewhat, but at the moment, this makes sense.) Calculates the RSI for the first 50 stocks (50 is the largest values stline takes in main), and outputs them to a txt file in Output/, with the filename as the last day it took into account, to calculate the RSI. 
+The filename as the last day will ideally be of use for the planned rsiupdate program, which using this text file, can simply find the next txt file, read the stocks' data, and make a txt file with updated rsi values.
+In the output txt file, at the moment, the array of opening value, closing value, simple moving average of closing values, of opening values, and rsi, is printed. You can also choose to print multiple rows for each stock, as in see rsi changes over numerous days, greater than n, by changing a few values, mainly the range of the second for loop in main(), by running i from a smaller value to day.
+
 ###Right Now?
 To calculate the RSI of the stocks in the txt files.
 
@@ -13,6 +21,7 @@ The syntax of stock details in the txt files are as such:
 The output is supposed to be a txt file with the following format:
 <STOCKNAME>, RSI, … <other statistical measurements as and when we think of them>,
 with the filename being the date.
+
 
 ###Further probable things###
 Functionality is to be added in terms of other statistical measurements, whichever seems to be any important value to our active investor. :P 
